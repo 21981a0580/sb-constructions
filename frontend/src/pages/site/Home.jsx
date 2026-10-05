@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { useData } from '../../context/DataContext'
 import { ProjectsGrid } from './ProjectsPage'
 
+const OWNER_IMG =
+  'https://res.cloudinary.com/dr2nf4d44/image/upload/f_auto,q_auto,w_1400/v1791201132/owner_bdujtv.jpg'
+
 const steps = [
   ['Consultation', 'Understand your needs'], ['Planning', 'Detailed planning & design'],
   ['Execution', 'Skilled construction & supervision'], ['Quality Check', 'Ensuring the highest standards'],
@@ -20,36 +23,36 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-<section className="relative bg-slate-900 text-white overflow-hidden">
-  {/* Owner photo */}
-  <div className="absolute inset-y-0 right-0 w-full md:w-3/5">
-    <img
-      src="/images/owner.jpg"
-      alt="Owner of SB Constructions"
-      className="h-full w-full object-cover object-[50%_12%]"
-    />
-    {/* darker overlay on phones so the text stays readable */}
-    <div className="absolute inset-0 bg-slate-900/65 md:hidden" />
-    {/* fade into the dark background on desktop */}
-    <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent" />
-  </div>
+      <section className="relative bg-slate-900 text-white overflow-hidden">
+        {/* Owner photo */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-3/5">
+          <img
+            src={OWNER_IMG}
+            alt="Owner of SB Constructions"
+            className="h-full w-full object-cover object-[50%_12%]"
+          />
+          {/* darker overlay on phones so the text stays readable */}
+          <div className="absolute inset-0 bg-slate-900/65 md:hidden" />
+          {/* fade into the dark background on desktop */}
+          <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent" />
+        </div>
 
-  <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-32 md:min-h-[600px] flex items-center">
-    <div>
-      <Label>SB CONSTRUCTIONS</Label>
-      <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-        BUILDING WHAT<br />MATTERS<span className="text-yellow-400">.</span>
-      </h1>
-      <p className="mt-4 max-w-md text-lg">
-        Complete construction solutions for residential and commercial projects across India.
-      </p>
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Link to="/projects" className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded">View Our Projects →</Link>
-        <Link to="/contact" className="border border-white px-6 py-3 rounded">Get a Quote</Link>
-      </div>
-    </div>
-  </div>
-</section>
+        <div className="relative max-w-6xl mx-auto px-4 py-24 md:py-32 md:min-h-[600px] flex items-center">
+          <div>
+            <Label>SB CONSTRUCTIONS</Label>
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              BUILDING WHAT<br />MATTERS<span className="text-yellow-400">.</span>
+            </h1>
+            <p className="mt-4 max-w-md text-lg">
+              Complete construction solutions for residential and commercial projects across India.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/projects" className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded">View Our Projects →</Link>
+              <Link to="/contact" className="border border-white px-6 py-3 rounded">Get a Quote</Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* About */}
       <section id="about" className="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-10 items-center">

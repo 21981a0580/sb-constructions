@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import api, { imgUrl } from '../api'
+import { imgUrl } from '../api'
 
 export default function CrudPage({ title, items, columns, fields, onSave, onDelete }) {
   const [editing, setEditing] = useState(null)
@@ -21,6 +21,7 @@ export default function CrudPage({ title, items, columns, fields, onSave, onDele
   const change = (f, v) =>
     setEditing((prev) => ({ ...prev, [f.name]: f.type === 'number' ? Number(v) : v }))
 
+  // uploads straight to Cloudinary and stores the full https URL
   const pickImage = async (f, file) => {
     if (!file) return
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type))
@@ -29,12 +30,17 @@ export default function CrudPage({ title, items, columns, fields, onSave, onDele
 
     const body = new FormData()
     body.append('file', file)
+    body.append('upload_preset', import.meta.env.VITE_CLOUDINARY_PRESET)
     setUploading(true)
     try {
-      const { data } = await api.post('/admin/upload', body)
-      change(f, data.url)            // stores "/uploads/xxxx.jpg"
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD}/image/upload`,
+        { method: 'POST', body })
+      const data = await res.json()
+      if (!data.secure_url) throw new Error(data.error?.message || 'Upload failed')
+      change(f, data.secure_url)
     } catch (e) {
-      alert('Upload failed: ' + (e.response?.data?.message || e.message))
+      alert('Upload failed: ' + e.message)
     } finally {
       setUploading(false)
     }
